@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Job Tracker</title>
+</head>
+<body>
+	<h1>Jobs</h1>
+	<form action="/jobs" method="post">
+		<input type="text" name="company"> <br>
+		<input type="url" name="url"><br>
+		<select name="status">
+			<option selected value="1">
+				nothin
+			</option>
+			<option value="2">
+				applied
+			</option>
+			<option value="3">
+				phone
+			</option>
+			<option value="4">
+				onsite
+			</option>
+			<option value="5">
+				offer
+			</option>
+			<option value="9">
+				rejected
+			</option>
+		</select><br>
+		<button type="submit">
+			Save
+		</button>
+
+	</form>
+	<div>
+		{% for job in jobs %}
+			<p>{{ job }}</p>
+		{% endfor %}
+	</div>
+</body>
+</html>
