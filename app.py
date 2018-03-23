@@ -26,7 +26,7 @@ def jobs():
 
 	return redirect('/')
 
-@app.route('/jobs/<int:job_id>/edit', methods=("GET", "POST"))
+@app.route('/jobs/<job_id>/edit', methods=("GET", "POST"))
 def edit_job(job_id):
 	c = conn.cursor()
 	if request.method == "GET":
@@ -37,5 +37,6 @@ def edit_job(job_id):
 	else:
 		print(request.form)
 		c.execute('UPDATE jobs SET company=?, url=?, status=? WHERE job_id=?', (request.form['company'], request.form['url'], request.form['status'], job_id))
+		conn.commit()
 		c.close()
 		return redirect('/')
