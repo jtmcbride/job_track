@@ -10,21 +10,17 @@
 		<input type="text" name="company" value={{ current_job[0] }}> <br>
 		<input type="url" name="url" value={{ current_job[1] }}><br>
 		<select name="status">
-			<option selected value="1">
-				nothin
-			</option>
-			<option value="2">
-				applied
-			</option>
-			<option value="3">
-				phone
-			</option>
-			<option value="4">
-				onsite
-			</option>
-			<option value="5">
-				offer
-			</option>
+			{% for i, opt in [(1, "nothin"), (2, "applied"), (3,"phone"), (4,"onsite"), (5, "offer"), (9, "rejected")] %}
+				{% if current_job[3] == i %}
+					<option selected value="{{ i }}">
+						{{ opt }}
+					</option>
+				{% else %}
+					<option value="{{ i }}">
+						{{ opt }}
+					</option>
+				{% endif %}
+			{% endfor %}
 			<option value="9">
 				rejected
 			</option>
@@ -32,28 +28,17 @@
 		<button type="submit">
 			Save
 		</button>
-
 	</form>
 	{% else %}
 		<form action="/jobs" method="post">
 			<input type="text" name="company"> <br>
 			<input type="url" name="url"><br>
 			<select name="status">
-				<option selected value="1">
-					nothin
-				</option>
-				<option value="2">
-					applied
-				</option>
-				<option value="3">
-					phone
-				</option>
-				<option value="4">
-					onsite
-				</option>
-				<option value="5">
-					offer
-				</option>
+				{% for i, opt in [(1, "nothin"), (2, "applied"), (3,"phone"), (4,"onsite"), (5, "offer"), (9, "rejected")] %}
+					<option value="{{ i }}">
+						{{ opt }}
+					</option>
+				{% endfor %}
 				<option value="9">
 					rejected
 				</option>
@@ -61,13 +46,26 @@
 			<button type="submit">
 				Save
 			</button>
-
 		</form>
 	{% endif %}
 	<div>
-		{% for job in jobs %}
-			<p>{{ job }}</p>
-		{% endfor %}
+		<table>
+			<thead>
+				<th>Name</th>
+				<th>URL</th>
+				<th>ID</th>
+				<th>Status</th>
+				<th>Date Applied</th>
+			</thead>
+			{% for job in jobs %}
+					<tr>
+						{% for dat in job %}
+							<td><a href="/jobs/{{ job[3] }}/edit">{{ dat }}</a></td>
+						{% endfor %}
+					</tr>
+			{% endfor %}
+		</table>
+		
 	</div>
 </body>
 </html>
