@@ -9,6 +9,7 @@
 		<form method="post">
 		<input type="text" name="company" value={{ current_job[0] }}> <br>
 		<input type="url" name="url" value={{ current_job[1] }}><br>
+		<textarea name="notes" cols="30" rows="10">{{ current_job[5] }}</textarea>
 		<select name="status">
 			{% for i, opt in [(1, "nothin"), (2, "applied"), (3,"phone"), (4,"onsite"), (5, "offer"), (9, "rejected")] %}
 				{% if current_job[3] == i %}
@@ -31,8 +32,13 @@
 	</form>
 	{% else %}
 		<form action="/jobs" method="post">
+			<label for="company">Company</label>
 			<input type="text" name="company"> <br>
+			<label for="url">URL</label>
 			<input type="url" name="url"><br>
+			<label for="notes">Notes</label><br>
+			<textarea name="notes" cols="30" rows="10"></textarea> <br>
+			<label for="status">Status</label>
 			<select name="status">
 				{% for i, opt in [(1, "nothin"), (2, "applied"), (3,"phone"), (4,"onsite"), (5, "offer"), (9, "rejected")] %}
 					<option value="{{ i }}">
@@ -60,7 +66,7 @@
 			{% for job in jobs %}
 					<tr>
 						{% for dat in job %}
-							<td><a href="/jobs/{{ job[3] }}/edit">{{ dat }}</a></td>
+							<td><a href="/jobs/{{ job[2] }}/edit">{{ dat }}</a></td>
 						{% endfor %}
 					</tr>
 			{% endfor %}
