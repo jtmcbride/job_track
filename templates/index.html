@@ -6,8 +6,9 @@
 <body>
 	<h1>Jobs</h1>
 	{% if current_job %}
+		{{ current_job[0] }}
 		<form method="post">
-		<input type="text" name="company" value={{ current_job[0] }}> <br>
+		<input type="text" name="company" value="{{ current_job[0] }}"> <br>
 		<input type="url" name="url" value={{ current_job[1] }}><br>
 		<textarea name="notes" cols="30" rows="10">{{ current_job[5] }}</textarea>
 		<select name="status">
@@ -26,6 +27,7 @@
 				rejected
 			</option>
 		</select><br>
+		<input type="hidden" name="prev-status" value="{{ current_job[3] }}">
 		<button type="submit">
 			Save
 		</button>
@@ -63,13 +65,15 @@
 				<th>Status</th>
 				<th>Date Applied</th>
 			</thead>
-			{% for job in jobs %}
+			<tbody>
+				{% for job in jobs %}
 					<tr>
 						{% for dat in job %}
 							<td><a href="/jobs/{{ job[2] }}/edit">{{ dat }}</a></td>
 						{% endfor %}
 					</tr>
-			{% endfor %}
+				{% endfor %}
+			</tbody>
 		</table>
 		
 	</div>
