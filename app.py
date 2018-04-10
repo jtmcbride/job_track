@@ -76,7 +76,7 @@ def edit_job(job_id):
 				VALUES
 					(?,?,?)
 			'''
-			status_values = (job_id, request.form['status'], from_status)
+			status_values = (job_id, request.form['status'], prev_status)
 			c.execute(status_sql, status_values)
 		conn.commit()
 		c.close()
